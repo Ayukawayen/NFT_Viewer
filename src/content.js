@@ -1,16 +1,46 @@
-const Network = 10000;
+const adapters = {
+	'www.smartscan.cash': {
+		network: 10000,
+		regExp: /\/transaction\/(0x[0-9a-fA-F]{64})/,
+	},
+	/*
+	// Don't forget to add urls in manifest.json/content_scripts/matches if you want to add etherscan sites.
+	'etherscan.io': {
+		network: 1,
+		regExp: /\/tx\/(0x[0-9a-fA-F]{64})/,
+	},
+	'ropsten.etherscan.io': {
+		network: 3,
+		regExp: /\/tx\/(0x[0-9a-fA-F]{64})/,
+	},
+	'rinkeby.etherscan.io': {
+		network: 4,
+		regExp: /\/tx\/(0x[0-9a-fA-F]{64})/,
+	},
+	'goerli.etherscan.io': {
+		network: 5,
+		regExp: /\/tx\/(0x[0-9a-fA-F]{64})/,
+	},
+	'kovan.etherscan.io': {
+		network: 42,
+		regExp: /\/tx\/(0x[0-9a-fA-F]{64})/,
+	},
+	*/
+};
 
-wrapNodes();
-
-function wrapNodes() {
-	let re = /\/transaction\/(0x[0-9a-fA-F]{64})/;
+(()=>{
+	let adapter = adapters[location.host];
+	if(!adapter) return;
 	
-	let buf = re.exec(location.pathname);
+	let buf = adapter.regExp.exec(location.pathname);
 	if(!buf) return;
 	
 	chrome.runtime.sendMessage({
-		getMetadatas:[Network, buf[1]],
+		getMetadatas:[adapter.network, buf[1]],
 	}, (response) => {
+		if(!response) return;
+		if(response.length <= 0) return;
+		
 		let metaListNode = null;
 		
 		for(let i=0;i<response.length;++i) {
@@ -32,7 +62,7 @@ function wrapNodes() {
 		}
 		
 	});
-}
+})();
 
 
 function createElement(tagName, attributes, childnodes) {

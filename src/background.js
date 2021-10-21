@@ -1,4 +1,9 @@
 let providers = {
+	//1: new ethers.providers.EtherscanProvider(1, YOUR_API_KEY),
+	//3: new ethers.providers.EtherscanProvider(3, YOUR_API_KEY),
+	//4: new ethers.providers.EtherscanProvider(4, YOUR_API_KEY),
+	//5: new ethers.providers.EtherscanProvider(5, YOUR_API_KEY),
+	//42: new ethers.providers.EtherscanProvider(42, YOUR_API_KEY),
 	10000: new ethers.providers.JsonRpcProvider('https://smartbch.fountainhead.cash/mainnet', 10000),
 };
 
@@ -12,6 +17,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
 });
 
 async function getMetadatas(network, txHash) {
+	if(!providers[network]) return null;
+	
 	let receipt = await providers[network].getTransactionReceipt(txHash);
 
 	let result = [];
