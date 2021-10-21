@@ -1,0 +1,52 @@
+.NETAYUKAWAYEN_nftmeta {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 100000000;
+    opacity: 0.8;
+	
+    padding: 2px;
+    border: solid 2px #333;
+    background: #ffc;
+	
+    text-align: center;
+}
+
+.NETAYUKAWAYEN_nftmeta >dl {
+	float: left;
+	
+    margin: 0;
+	padding: 0;
+}
+.NETAYUKAWAYEN_nftmeta >dl >dt {
+	display:none;
+	
+	font-size: 16px;
+    height: 20px;
+    margin: 0;
+	padding: 4px 0;
+}
+.NETAYUKAWAYEN_nftmeta >dl >dd {
+    width:  32px;
+    height: 32px;
+    margin: 0;
+}
+
+.NETAYUKAWAYEN_nftmeta:hover {
+    padding: 8px;
+	border-radius: 8px;
+}
+.NETAYUKAWAYEN_nftmeta:hover >dl >dt {
+	display:block;
+}
+.NETAYUKAWAYEN_nftmeta:hover >dl >dd {
+    width:  256px;
+    height: 256px;
+}
+
+.NETAYUKAWAYEN_nftmeta >dl >dd >img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+}
+
